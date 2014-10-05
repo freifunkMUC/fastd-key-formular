@@ -36,7 +36,7 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
 
             $fileContent =
                 "# Knotenname: ".$_POST['nodename']."\n" . "# Ansprechpartner: " . $_POST['contactname'] . "\n" . "# Kontakt: " . $_POST['contactmail']
-                . "\n" . "# Koordinaten: " . $_POST['coordinates'] . "\n" . "# MAC: " . $_POST['macaddress'] . "\n" . "# Token: " . uniqid()
+                . "\n" . "# Koordinaten: " . $_POST['coordinates_lat'] . " " . $_POST['coordinates_long'] . "\n" . "# MAC: " . $_POST['macaddress'] . "\n" . "# Token: " . uniqid()
                 . "\n" . "key \"" . $_POST['key'] . "\";\n";
 
             file_put_contents($filePath, $fileContent);
@@ -52,7 +52,7 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
         }
     }
 } else {
-    $message = 'Bitte Nodename + Key angeben';
+    $message = 'Bitte Nodename, MAC-Adresse und Key angeben';
 }
 
 ?>
@@ -64,11 +64,16 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
     <title>Freifunk München - Knoten hinzufügen</title>
 </head>
 
+<style type="text/css">
+.tg  {font-family:Arial, sans-serif;border-collapse:collapse;border-spacing:0;}
+.tg td{font-size:14px;overflow:hidden;word-break:normal;}
+.tg td.mandatory{font-weight:bold;}
+</style>
+
 <body>
 
-<img style="display: block; float:left" src="images/ffm-logo.png"/>
-
 <div style="float: left; padding-left: 50px">
+    <img style="display: block; float:left; width:100px" src="images/ffm-logo.png"/>
     <h1>Freifunk München</h1>
 
     <p class="message">
@@ -76,14 +81,56 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
     </p>
 
     <form action="index.php" method="post">
-        Knotenname (Blastr_14): <input type="text" width="60" name="nodename"/><br/>
-        Ansprechpartner (John): <input type="text" width="60" name="contactname"/><br/>
-        Kontaktmail (john@example.com): <input type="text" width="60" name="contactmail"/><br/>
-        Koordinaten (48.18211 11.57789): <input type="text" width="60" name="coordinates"/><br/>
-        MAC: (ff:00:bb:11:22:33): <input type="text" width="60" name="macaddress"/><br/>
-        Key: (64 stellig): <input type="text" width="60" name="key"/><br/>
-        <input type="submit" value="eintragen" ?>
+    <table class="tg">
+      <tr>
+        <td class="tg-031e mandatory">Knotenname</td>
+      </tr>
+      <tr>
+        <td class="tg-031e"><input type="text" width="60" name="nodename"/> (z.B. MeineStrasse_14)</td>
+      </tr>
+      <tr>
+        <td class="tg-031e mandatory">MAC-Adresse</td>
+      </tr>
+      <tr>
+        <td class="tg-031e"><input type="text" width="60" name="macaddress"/> (z.B. ff:00:bb:11:22:33)</td>
+      </tr>
+      <tr>
+        <td class="tg-031e mandatory">Key</td>
+      </tr>
+      <tr>
+        <td class="tg-031e"><input type="text" width="60" name="key"/> (64 stellig)</td>
+      </tr>
+      <tr>
+        <td class="tg-031e">Ansprechpartner</td>
+      </tr>
+      <tr>
+        <td class="tg-031e"><input type="text" width="60" name="contactname"/> (z.B. John)</td>
+      </tr>
+      <tr>
+        <td class="tg-031e">Kontaktmail</td>
+      </tr>
+      <tr>
+        <td class="tg-031e"><input type="text" width="80" name="contactmail"/> (z.B. john@example.com)</td>
+      </tr>
+      <tr>
+        <td class="tg-031e">Koordinaten</td>
+      </tr>
+      <tr>
+        <td class="tg-031e">
+            <input type="text" size="8" maxlength="8" name="coordinates_lat"/>
+            <input type="text" size="8" maxlength="8" name="coordinates_long"/>
+             (z.B. 48.18211 11.57789)
+        </td>
+      </tr>
+      <tr>
+        <td class="tg-031e mandatory">
+            <input type="submit" value="eintragen" ?>
+            (benötigte Felder)
+        </td>
+      </tr>
+    </table>
     </form>
+
 </div>
 </body>
 </html>
