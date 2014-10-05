@@ -3,3 +3,4 @@ keys/*
 *.iml
 .idea
 .idea/*
+git-push.sh
