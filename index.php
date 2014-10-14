@@ -89,31 +89,31 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
         <td class="tg-031e mandatory">Knotenname</td>
       </tr>
       <tr>
-        <td class="tg-031e"><input type="text" width="60" name="nodename"/> (z.B. MeineStrasse_14)</td>
+        <td class="tg-031e"><input type="text" width="60" maxlength="128" name="nodename"/> (z.B. MeineStrasse_14)</td>
       </tr>
       <tr>
         <td class="tg-031e mandatory">MAC-Adresse</td>
       </tr>
       <tr>
-        <td class="tg-031e"><input type="text" width="60" name="macaddress"/> (z.B. ff:00:bb:11:22:33)</td>
+        <td class="tg-031e"><input type="text" width="60" maxlength="17" name="macaddress"/> (z.B. ff:00:bb:11:22:33)</td>
       </tr>
       <tr>
         <td class="tg-031e mandatory">Key</td>
       </tr>
       <tr>
-        <td class="tg-031e"><input type="text" width="60" name="key"/> (64 stellig)</td>
+        <td class="tg-031e"><input type="text" width="60" maxlength="64" name="key"/> (64 stellig)</td>
       </tr>
       <tr>
         <td class="tg-031e">Ansprechpartner</td>
       </tr>
       <tr>
-        <td class="tg-031e"><input type="text" width="60" name="contactname"/> (z.B. John)</td>
+        <td class="tg-031e"><input type="text" width="60" maxlength="128" name="contactname"/> (z.B. John)</td>
       </tr>
       <tr>
         <td class="tg-031e">Kontaktmail</td>
       </tr>
       <tr>
-        <td class="tg-031e"><input type="text" width="80" name="contactmail"/> (z.B. john@example.com)</td>
+        <td class="tg-031e"><input type="text" width="80" maxlength="128" name="contactmail"/> (z.B. john@example.com)</td>
       </tr>
       <tr>
         <td class="tg-031e mandatory">
