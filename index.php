@@ -3,7 +3,6 @@
 # Knotenname: Abtstr_14
 # Ansprechpartner: Ole
 # Kontakt: mail@dreessen.de
-# Koordinaten: 48.18211 11.57789
 # MAC: e8:94:f6:4b:7f:1c
 # Token: 78asdhfase
 key "60acc9922fff4c12dc1eee1f2eeddb77b90c5a48388858ab79b44c9e4964296f";
@@ -36,7 +35,7 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
 
             $fileContent =
                 "# Knotenname: ".$_POST['nodename']."\n" . "# Ansprechpartner: " . $_POST['contactname'] . "\n" . "# Kontakt: " . $_POST['contactmail']
-                . "\n" . "# Koordinaten: " . $_POST['coordinates_lat'] . " " . $_POST['coordinates_long'] . "\n" . "# MAC: " . $_POST['macaddress'] . "\n" . "# Token: " . uniqid()
+                . "\n" . "# MAC: " . $_POST['macaddress'] . "\n" . "# Token: " . uniqid()
                 . "\n" . "key \"" . $_POST['key'] . "\";\n";
 
             file_put_contents($filePath, $fileContent);
@@ -111,16 +110,6 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
       </tr>
       <tr>
         <td class="tg-031e"><input type="text" width="80" name="contactmail"/> (z.B. john@example.com)</td>
-      </tr>
-      <tr>
-        <td class="tg-031e">Koordinaten</td>
-      </tr>
-      <tr>
-        <td class="tg-031e">
-            <input type="text" size="8" maxlength="8" name="coordinates_lat"/>
-            <input type="text" size="8" maxlength="8" name="coordinates_long"/>
-             (z.B. 48.18211 11.57789)
-        </td>
       </tr>
       <tr>
         <td class="tg-031e mandatory">
