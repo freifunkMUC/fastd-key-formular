@@ -1,8 +1,8 @@
 #!/usr/bin/expect
 
-set pw MYPASSWORD
+source password.sh
 
-spawn git push
+spawn git pull
 expect "git@46.149.18.17's password:"
 send $pw\n
 
