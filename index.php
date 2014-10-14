@@ -20,22 +20,24 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
     && isset( $_POST['macaddress'] )
 ) {
     $message = '';
+	
+    $mac = strtolower($_POST['macaddress']);
 
-    if (!preg_match('/[a-f0-9]{64}/', $_POST['key'])) {
+    if (!preg_match('/[a-fA-F0-9]{64}/', $_POST['key'])) {
         $message .= 'Erwarte Hex-Key mit Länge 64<br />';
     } elseif (!preg_match('/[A-Za-z_0-9]*/', $_POST['nodename'])) {
         $message .= 'Kontenname darf nur Buchstaben, Zahlen und Unterstrich enthalten<br />';
-    } elseif (!preg_match('/[a-z:0-9]{17}/', $_POST['macaddress'])) {
+    } elseif (!preg_match('/([a-zA-F0-9]{2}:){5}[a-fA-F0-9]{2}$/', $mac)) {
         $message .= 'MAC-Adresse bitte in der Form f1:8e:11:22:33:a4 angeben<br />';
     } else {
-        $fileName = $_POST['nodename'] . '@' . $_POST['macaddress'] . '@' . $_POST['key'];
+        $fileName = $_POST['nodename'] . '@' . $mac . '@' . $_POST['key'];
         $filePath = __DIR__ . '/keys/' . $fileName;
 
         if (!file_exists($filePath)) {
 
             $fileContent =
                 "# Knotenname: ".$_POST['nodename']."\n" . "# Ansprechpartner: " . $_POST['contactname'] . "\n" . "# Kontakt: " . $_POST['contactmail']
-                . "\n" . "# MAC: " . $_POST['macaddress'] . "\n" . "# Token: " . uniqid()
+                . "\n" . "# MAC: " . $mac . "\n" . "# Token: " . uniqid()
                 . "\n" . "key \"" . $_POST['key'] . "\";\n";
 
             file_put_contents($filePath, $fileContent);
