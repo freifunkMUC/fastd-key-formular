@@ -74,11 +74,11 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
 
 <body>
 
-<div style="float: left; padding-left: 50px">
+<div style="margin-left: 50px">
     <img style="display: block; float:left; width:100px" src="images/ffm-logo.png"/>
     <h1>Freifunk München</h1>
 </div>
-<div style="float: left; padding-left: 50px">
+<div style="margin-left: 50px">
     <p class="message">
         <?= $message; ?>
     </p>
@@ -123,8 +123,24 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
       </tr>
     </table>
     </form>
-
 </div>
+
+<?php
+if(isset($_GET['listkeys']))
+{
+	if ($handle = opendir('./keys')) {
+	echo '<ul type="circle">';
+    	while (false !== ($file = readdir($handle))) {
+        	if ($file != "." && $file != ".." && $file != ".gitignore") {
+            	echo "<li>$file</li>";
+        	}
+    	}
+	echo '</ul>';
+    	closedir($handle);
+	}
+}
+?>
+
 </body>
 </html>
 
