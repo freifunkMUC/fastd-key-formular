@@ -16,6 +16,7 @@ Also <knotenname>@<mac-Adresse>@fastd-key
 
 */
 
+
 if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
     && isset( $_POST['macaddress'] )
 ) {
@@ -31,16 +32,18 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
     } elseif (!preg_match('/([a-zA-F0-9]{2}:){5}[a-fA-F0-9]{2}$/', $mac)) {
         $message .= 'MAC-Adresse bitte in der Form f1:8e:11:22:33:a4 angeben<br />';
     } else {
-        $fileName = $_POST['nodename'] . '@' . $mac . '@' . $key;
-        $filePath = __DIR__ . '/keys/' . $fileName;
 
-        if (!file_exists($filePath)) {
+        $matches = glob(__DIR__ . '/keys/*' . $key);
+
+        if (false == $matches) {
 
             $fileContent =
                 "# Knotenname: ".$_POST['nodename']."\n" . "# Ansprechpartner: " . $_POST['contactname'] . "\n" . "# Kontakt: " . $_POST['contactmail']
                 . "\n" . "# MAC: " . $mac . "\n" . "# Token: " . uniqid()
                 . "\n" . "key \"" . $key . "\";\n";
-
+            
+            $fileName = $_POST['nodename'] . '@' . $mac . '@' . $key;
+            $filePath = __DIR__ . '/keys/' . $fileName;
             file_put_contents($filePath, $fileContent);
             $message = "Key " . $fileName . " eingetragen";
             $message .= "<pre>";
@@ -50,7 +53,7 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
             $message .= shell_exec('./push.sh');
             $message .= "</pre>";
         } else {
-            $message = "Es existiert bereits ein Key für diesen Host";
+            $message = "Dieser Key existiert bereits! Bitte kontaktiere einen Gateway Admin um dieses Problem zu beheben.";
         }
     }
 } else {
