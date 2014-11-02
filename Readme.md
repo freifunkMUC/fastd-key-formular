@@ -12,5 +12,5 @@ Copy password.sh.template to password.sh and enter the password
 for the key repo:
 
 ```
-pw="MYPASSWORD"
+set pw MYPASSWORD
 ```

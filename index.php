@@ -16,6 +16,7 @@ Also <knotenname>@<mac-Adresse>@fastd-key
 
 */
 
+
 if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
     && isset( $_POST['macaddress'] )
 ) {
@@ -31,16 +32,18 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
     } elseif (!preg_match('/([a-zA-F0-9]{2}:){5}[a-fA-F0-9]{2}$/', $mac)) {
         $message .= 'MAC-Adresse bitte in der Form f1:8e:11:22:33:a4 angeben<br />';
     } else {
-        $fileName = $_POST['nodename'] . '@' . $mac . '@' . $key;
-        $filePath = __DIR__ . '/keys/' . $fileName;
 
-        if (!file_exists($filePath)) {
+        $matches = glob(__DIR__ . '/keys/*' . $key);
+
+        if (false == $matches) {
 
             $fileContent =
                 "# Knotenname: ".$_POST['nodename']."\n" . "# Ansprechpartner: " . $_POST['contactname'] . "\n" . "# Kontakt: " . $_POST['contactmail']
                 . "\n" . "# MAC: " . $mac . "\n" . "# Token: " . uniqid()
                 . "\n" . "key \"" . $key . "\";\n";
-
+            
+            $fileName = $_POST['nodename'] . '@' . $mac . '@' . $key;
+            $filePath = __DIR__ . '/keys/' . $fileName;
             file_put_contents($filePath, $fileContent);
             $message = "Key " . $fileName . " eingetragen";
             $message .= "<pre>";
@@ -50,7 +53,7 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
             $message .= shell_exec('./push.sh');
             $message .= "</pre>";
         } else {
-            $message = "Es existiert bereits ein Key für diesen Host";
+            $message = "Dieser Key existiert bereits! Bitte kontaktiere einen Gateway Admin um dieses Problem zu beheben.";
         }
     }
 } else {
@@ -89,19 +92,19 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
         <td class="tg-031e mandatory">Knotenname</td>
       </tr>
       <tr>
-        <td class="tg-031e"><input type="text" width="60" maxlength="128" name="nodename"/> (z.B. MeineStrasse_14)</td>
+        <td class="tg-031e"><input type="text" width="60" maxlength="128" name="nodename" value="<?php echo $_GET['name']; ?>"/> (z.B. MeineStrasse_14)</td>
       </tr>
       <tr>
         <td class="tg-031e mandatory">MAC-Adresse</td>
       </tr>
       <tr>
-        <td class="tg-031e"><input type="text" width="60" maxlength="17" name="macaddress"/> (z.B. ff:00:bb:11:22:33)</td>
+        <td class="tg-031e"><input type="text" width="60" maxlength="17" name="macaddress" value="<?php echo $_GET['mac']; ?>"/> (z.B. ff:00:bb:11:22:33)</td>
       </tr>
       <tr>
         <td class="tg-031e mandatory">Key</td>
       </tr>
       <tr>
-        <td class="tg-031e"><input type="text" width="60" maxlength="64" name="key"/> (64 stellig)</td>
+        <td class="tg-031e"><input type="text" width="60" maxlength="64" name="key" value="<?php echo $_GET['key']; ?>"/> (64 stellig)</td>
       </tr>
       <tr>
         <td class="tg-031e">Ansprechpartner</td>
