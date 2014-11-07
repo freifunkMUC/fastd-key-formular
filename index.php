@@ -21,7 +21,7 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
     && isset( $_POST['macaddress'] )
 ) {
     $message = '';
-	
+  
     $mac = strtolower($_POST['macaddress']);
     $key = strtolower($_POST['key']);
 
@@ -62,89 +62,104 @@ if (isset( $_POST['key'] ) && isset( $_POST['nodename'] )
 
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
 
     <title>Freifunk München - Knoten hinzufügen</title>
-</head>
 
-<style type="text/css">
-.tg  {font-family:Arial, sans-serif;border-collapse:collapse;border-spacing:0;}
-.tg td{font-size:14px;overflow:hidden;word-break:normal;}
-.tg td.mandatory{font-weight:bold;}
-</style>
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
 
-<body>
+    <!-- Custom styles for this template -->
+    <link href="main.css" rel="stylesheet">
+  </head>
 
-<div style="margin-left: 50px">
-    <img style="display: block; float:left; width:100px" src="images/ffm-logo.png"/>
-    <h1>Freifunk München</h1>
-</div>
-<div style="margin-left: 50px">
-    <p class="message">
-        <?= $message; ?>
-    </p>
+  <body>
 
-    <form action="index.php" method="post">
-    <table class="tg">
-      <tr>
-        <td class="tg-031e mandatory">Knotenname</td>
-      </tr>
-      <tr>
-        <td class="tg-031e"><input type="text" width="60" maxlength="128" name="nodename" value="<?php echo $_GET['name']; ?>"/> (z.B. MeineStrasse_14)</td>
-      </tr>
-      <tr>
-        <td class="tg-031e mandatory">MAC-Adresse</td>
-      </tr>
-      <tr>
-        <td class="tg-031e"><input type="text" width="60" maxlength="17" name="macaddress" value="<?php echo $_GET['mac']; ?>"/> (z.B. ff:00:bb:11:22:33)</td>
-      </tr>
-      <tr>
-        <td class="tg-031e mandatory">Key</td>
-      </tr>
-      <tr>
-        <td class="tg-031e"><input type="text" width="60" maxlength="64" name="key" value="<?php echo $_GET['key']; ?>"/> (64 stellig)</td>
-      </tr>
-      <tr>
-        <td class="tg-031e">Ansprechpartner</td>
-      </tr>
-      <tr>
-        <td class="tg-031e"><input type="text" width="60" maxlength="128" name="contactname"/> (z.B. John)</td>
-      </tr>
-      <tr>
-        <td class="tg-031e">Kontaktmail</td>
-      </tr>
-      <tr>
-        <td class="tg-031e"><input type="text" width="80" maxlength="128" name="contactmail"/> (z.B. john@example.com)</td>
-      </tr>
-      <tr>
-        <td class="tg-031e mandatory">
-            <input type="submit" value="eintragen" ?>
-            (benötigte Felder)
-        </td>
-      </tr>
-    </table>
-    </form>
-</div>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="http://freifunk-muenchen.de">Freifunk München</a>
+        </div>
+      </div>
+    </nav>
 
-<?php
-if(isset($_GET['listkeys']))
-{
-	if ($handle = opendir('./keys')) {
-	echo '<ul type="circle">';
-    	while (false !== ($file = readdir($handle))) {
-        	if ($file != "." && $file != ".." && $file != ".gitignore") {
-            	echo "<li>$file</li>";
-        	}
-    	}
-	echo '</ul>';
-    	closedir($handle);
-	}
-}
-?>
+    <div class="container">
 
-</body>
+      <div class="starter-template">
+        <img style="width:25%" src="./images/ffm-logo.png">
+        <h1>Freifunk München Keyformular</h1>
+        <p class="lead"><?= $message; ?></p>
+          <form action="index.php" method="post">
+          <table class="tg">
+            <tr>
+              <td class="tg-031e mandatory">Knotenname</td>
+            </tr>
+            <tr>
+              <td class="tg-031e"><input type="text" width="60" maxlength="128" name="nodename" value="<?php echo $_GET['name']; ?>"/> (z.B. MeineStrasse_14)</td>
+            </tr>
+            <tr>
+              <td class="tg-031e mandatory">MAC-Adresse</td>
+            </tr>
+            <tr>
+              <td class="tg-031e"><input type="text" width="60" maxlength="17" name="macaddress" value="<?php echo $_GET['mac']; ?>"/> (z.B. ff:00:bb:11:22:33)</td>
+            </tr>
+            <tr>
+              <td class="tg-031e mandatory">Key</td>
+            </tr>
+            <tr>
+              <td class="tg-031e"><input type="text" width="60" maxlength="64" name="key" value="<?php echo $_GET['key']; ?>"/> (64 stellig)</td>
+            </tr>
+            <tr>
+              <td class="tg-031e">Ansprechpartner</td>
+            </tr>
+            <tr>
+              <td class="tg-031e"><input type="text" width="60" maxlength="128" name="contactname"/> (z.B. John)</td>
+            </tr>
+            <tr>
+              <td class="tg-031e">Kontaktmail</td>
+            </tr>
+            <tr>
+              <td class="tg-031e"><input type="text" width="80" maxlength="128" name="contactmail"/> (z.B. john@example.com)</td>
+            </tr>
+            <tr>
+              <td class="tg-031e mandatory">
+                  <input type="submit" value="eintragen" ?>
+                  (benötigte Felder)
+              </td>
+            </tr>
+          </table>
+          </form>
+      </div>
+
+    </div><!-- /.container -->
+
+    <?php
+    if(isset($_GET['listkeys']))
+    {
+      if ($handle = opendir('./keys')) {
+      echo '<ul type="circle">';
+          while (false !== ($file = readdir($handle))) {
+              if ($file != "." && $file != ".." && $file != ".gitignore") {
+                  echo "<li>$file</li>";
+              }
+          }
+      echo '</ul>';
+          closedir($handle);
+      }
+    }
+    ?>
+
+  </body>
 </html>
+
+
 
 
