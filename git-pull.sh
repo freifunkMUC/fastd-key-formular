@@ -1,9 +1,3 @@
-#!/usr/bin/expect
+#!/bin/bash
 
-source password.sh
-
-spawn git pull
-expect "git@46.149.18.17's password:"
-send $pw\n
-
-expect eof
+git.sh -i /var/www/.ssh/srv01 pull
